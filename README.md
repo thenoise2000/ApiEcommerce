@@ -164,7 +164,6 @@ de los elementos de la capa de dominio las tareas asociadas a este.
 Para abordar este requerimiento desde una perspectiva de Domain-Driven Design (DDD), podemos identificar tres entidades principales en el contexto del problema:  Price ,  Brand  y  Product . Cada una de estas entidades tiene su propia identidad y atributos específicos que se relacionan entre sí en el dominio del comercio electrónico. 
 
 ![E-R](https://github.com/thenoise2000/ApiEcommerce/assets/17861345/3dfacdcc-7425-41a0-846f-ccd776e6ffb4)
-
 **Price (Precio)** 
    - Atributos:  id ,  brand ,  product ,  startDate ,  endDate ,  priceList ,  priority ,  price ,  currency . 
    - Relaciones: Se relaciona con  Brand  y  Product . 

@@ -46,7 +46,7 @@ Herramientas
 
 - SpringBoot
 
-- Hibernate
+- JPA
 
 - H2
 
@@ -69,6 +69,11 @@ comando
 Pruebas en las Api:
 
 Url de pruebas para la Api = http://localhost:8080/api/findPrice
+
+Ejemplo
+
+image//
+
 
 parametros de entrada de las pruebas:
 
@@ -104,6 +109,89 @@ Para ejecutar tests
 
   O ejecutelos en el IDE de su preferencia
 
+                  
+                      
+                      
+                                  /** Analisis Domain Driven Design **/
+
+Domain Driven Design consiste, principalmente, en dos procesos: el modelado del dominio y la implementación de la lógica del dominio
+
+Arquitectura (Architecture)
+
+Segun (Murillo Paredes. Universisdad de Alcala, 2021) Para el diseño e implementación de cualquier aplicación se tienen que realizar
+múltiples tipos de tarea:
+
+lógica de negocio, interacción con el usuario, comunicación otros sistemas, etc. Si se mezclan las responsabilidades entre las diferentes tareas se obtienen sistemas acoplados, poco cohesionados, complejos y difícilmente mantenibles y probables.
+
+Las arquitecturas por capas son de gran utilidad para paliar la problemática mencionada anteriormente. El principio esencial que sustenta
+este tipo de arquitecturas es que un componente de una capa solo depende de otros componentes de esta o de capas inferiores, promoviendo
+el bajo acoplamiento y la alta cohesión. Evidentemente la elección de cada una de estas capas toma un papel relevante para un buen diseño arquitectónico. Como definición clásica, este tipo de arquitectura se suele dividir en las siguientes capas:
+
+• Capa de presentación. Muestra la información e interpreta las acciones realizadas por los usuarios
+
+• Capa de aplicación. Coordina las diferentes interacciones de una tarea y delega el trabajo en los colaboradores de dominio. 
+  No contiene lógica de negocio
+
+• Capa de dominio. Representa las reglas de negocio. Suele ser denominada como “el corazón del negocio”
+
+• Capa de infraestructura. Proporciona mecanismos para la integración con proveedores externos: persistencia de los objetos de dominio,     comunicación mediante mensajes, etc.
+
+image//
+
+Es necesario concentrar todo el código relativo al modelado de dominio en una única capa y aislarla del resto de tareas asociadas. Los componentes de la capa de dominio no tienen como responsabilidad mostrar información al usuario, persistir sus propios datos, etc.
+
+Los beneficios que se contienen con el uso de este tipo de arquitectura son:
+• Código fácil de leer, entender, cambiar y mantener
+• Código simétrico (predecible)
+• Alta cohesión y bajo acoplamiento
+• Modelos de dominio enriquecido
+• Componentes aislados y separados por su responsabilidad
+• Facilidad de realización de pruebas
+• Útil para sistemas distribuidos
+• Flexibilidad en el diseño
+
+Para el diseño de aplicación que siguen el patrón DDD se suele utilizar la arquitectura hexagonal ya que aísla el modelado del dominio 
+de los componentes externos. Este aislamiento permite que los cambios en los componentes externos no afecten al modelado del dominio.
+Los cambios en el dominio solo deben permitirse cuando son realizados por criterios del negocio. Los puertos son una definición del 
+contrato público y los adaptadores son la implementación de un puerto para un contexto en concreto.
+
+image//
+
+Para este caso de analisis de esta arquitectura por capas implementamos el flujo de una petición REST en la arquitectura hexagonal 
+en donde el controlador forma parte de la capa de infraestructura y delega en un servicio de la capa aplicación la ejecución de la 
+acción requerida por el usuario. El servicio de la capa de aplicación representa el caso de uso de manera atómica y coordina con ayuda
+de los elementos de la capa de dominio las tareas asociadas a este. 
+
+image//
 
 
+Para abordar este requerimiento desde una perspectiva de Domain-Driven Design (DDD), podemos identificar tres entidades principales en el contexto del problema:  Price ,  Brand  y  Product . Cada una de estas entidades tiene su propia identidad y atributos específicos que se relacionan entre sí en el dominio del comercio electrónico. 
+
+image//
+
+**Price (Precio)** 
+   - Atributos:  id ,  brand ,  product ,  startDate ,  endDate ,  priceList ,  priority ,  price ,  currency . 
+   - Relaciones: Se relaciona con  Brand  y  Product . 
+
+**Brand (Cadena)** 
+   - Atributos:  id ,  name . 
+   - Relaciones: Puede tener múltiples precios asociados. 
+
+**Product (Producto)** 
+   - Atributos:  id ,  name . 
+   - Relaciones: Puede tener múltiples precios asociados. 
+
+Para implementar la funcionalidad solicitada en Spring Boot, podemos seguir los siguientes pasos: 
+ 
+1. **Definir las Entidades:** Crear las clases Java que representen las entidades  Price ,  Brand  y  Product , con sus atributos y relaciones correspondientes. 
+ 
+2. **Definir los Repositorios:** Crear interfaces de repositorio para cada entidad que permitan acceder a los datos en la base de datos. 
+ 
+3. **Implementar el Servicio de Consulta de Precios:** Crear un servicio que contenga la lógica para consultar los precios aplicables según los parámetros de entrada recibidos (fecha de aplicación, identificador de producto, identificador de cadena). 
+ 
+4. **Crear el Controlador REST:** Implementar un controlador REST en Spring Boot que exponga un endpoint para la consulta de precios. Este controlador invocará al servicio creado en el paso anterior. 
+ 
+5. **Manejar las Excepciones:** Implementar un manejo adecuado de excepciones para casos como precios no encontrados, fechas no válidas, etc. 
+ 
+6. **Pruebas Unitarias:** Es importante realizar pruebas unitarias para validar el comportamiento de los servicios y controladores. 
 

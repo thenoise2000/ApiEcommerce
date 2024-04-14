@@ -19,17 +19,18 @@ import com.ecommerce.ApiCommerce.Infraestructure.Persistence.Price;
 public class MainController {
 
   private PriceServices priceService; 
+  public String msg; 
 
   @Autowired
   public MainController(PriceServices priceService) {
-    this.priceService = priceService;
+    this.priceService = priceService;    
   }
 
   @GetMapping("/findPrice")
   public ResPrices getPrice(@RequestBody ReqPrices getPriceRequest) {
     Price price = priceService.getPrices(getPriceRequest.getBrandId(), getPriceRequest.getProductId(), getPriceRequest.getDate());
     if (price == null) {
-        throw new PriceExceptions(""); 
+        throw new PriceExceptions(msg); 
     }
     return new ResPrices(price);
 }

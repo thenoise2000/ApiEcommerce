@@ -72,8 +72,7 @@ Url de pruebas para la Api = http://localhost:8080/api/findPrice
 
 Ejemplo
 
-image//
-
+![status](https://github.com/thenoise2000/ApiEcommerce/assets/17861345/18a877ce-d7ff-405c-bd83-c7ba1fd8f27a)
 
 parametros de entrada de las pruebas:
 
@@ -107,9 +106,7 @@ Para ejecutar tests
   bash
   mvnw test
 
-  O ejecutelos en el IDE de su preferencia
-
-                  
+  O ejecutelos en el IDE de su preferencia                  
                       
                       
                                   /** Analisis Domain Driven Design **/
@@ -136,7 +133,7 @@ el bajo acoplamiento y la alta cohesión. Evidentemente la elección de cada una
 
 • Capa de infraestructura. Proporciona mecanismos para la integración con proveedores externos: persistencia de los objetos de dominio,     comunicación mediante mensajes, etc.
 
-image//
+![capas](https://github.com/thenoise2000/ApiEcommerce/assets/17861345/4e0b38fc-9945-495c-82a2-a4f8dbf21422)
 
 Es necesario concentrar todo el código relativo al modelado de dominio en una única capa y aislarla del resto de tareas asociadas. Los componentes de la capa de dominio no tienen como responsabilidad mostrar información al usuario, persistir sus propios datos, etc.
 
@@ -155,19 +152,18 @@ de los componentes externos. Este aislamiento permite que los cambios en los com
 Los cambios en el dominio solo deben permitirse cuando son realizados por criterios del negocio. Los puertos son una definición del 
 contrato público y los adaptadores son la implementación de un puerto para un contexto en concreto.
 
-image//
+![cola](https://github.com/thenoise2000/ApiEcommerce/assets/17861345/2cfc3538-9cc5-4015-b474-ff5b1bb743dd)
 
 Para este caso de analisis de esta arquitectura por capas implementamos el flujo de una petición REST en la arquitectura hexagonal 
 en donde el controlador forma parte de la capa de infraestructura y delega en un servicio de la capa aplicación la ejecución de la 
 acción requerida por el usuario. El servicio de la capa de aplicación representa el caso de uso de manera atómica y coordina con ayuda
 de los elementos de la capa de dominio las tareas asociadas a este. 
 
-image//
-
+![rest](https://github.com/thenoise2000/ApiEcommerce/assets/17861345/fe8b342b-9d45-440b-82a8-5022990fe47c)
 
 Para abordar este requerimiento desde una perspectiva de Domain-Driven Design (DDD), podemos identificar tres entidades principales en el contexto del problema:  Price ,  Brand  y  Product . Cada una de estas entidades tiene su propia identidad y atributos específicos que se relacionan entre sí en el dominio del comercio electrónico. 
 
-image//
+![E-R](https://github.com/thenoise2000/ApiEcommerce/assets/17861345/3dfacdcc-7425-41a0-846f-ccd776e6ffb4)
 
 **Price (Precio)** 
    - Atributos:  id ,  brand ,  product ,  startDate ,  endDate ,  priceList ,  priority ,  price ,  currency . 
